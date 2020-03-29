@@ -1,0 +1,57 @@
+﻿@page
+@model PS5.Pages.CartModel
+@{
+    ViewData["Title"] = "Cart";
+}
+
+<h2>Koszyk</h2>
+<div class="row col-sm-12">
+    <a asp-page="Index" class="btn btn-primary btn-large">Powrót</a>
+</div>
+<br />
+<br />
+@if (Model.elements?.Count > 0)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">
+                    @Html.DisplayNameFor(model =>
+             Model.elements[0].product.id)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model =>
+             Model.elements[0].product.name)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model =>
+             Model.elements[0].product.price)
+                </th>
+                <th scope="col">Ilość</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model.elements)
+            {
+                <tr>
+                    <th scope="row">@Html.DisplayFor(m => p.product.id)</th>
+                    <td>@Html.DisplayFor(m => p.product.name)</td>
+                    <td>@Html.DisplayFor(m => p.product.price)</td>
+                    <td>@Html.DisplayFor(m => p.count) </td>
+                </tr>
+            }
+            <tr>
+                <th scope="row">Wartość koszyka: @Model.ValueOfCart()</th>
+
+            </tr>
+        </tbody>
+    </table>
+    <form method="post">
+        <button type="submit" class="btn btn-primary btn-large">Wyczyść koszyk</button>
+    </form>
+}
+else
+{
+    <span class="text-danger font-weight-bold">Twój koszyk jest pusty</span>
+}
+
